@@ -38,6 +38,7 @@ func createDeployment() string {
 	memory := "500Mi"
 	//storageClassName := "local-path"
 	storageSize := "2Gi"
+	fsGroup := int64(100)
 
 	//createPVC(clientset, name, namespace)
 	statefulSetClient := clientset.AppsV1().StatefulSets(namespace)
@@ -94,6 +95,9 @@ func createDeployment() string {
 								},
 							},
 						},
+					},
+					SecurityContext: &corev1.PodSecurityContext{
+						FSGroup: &fsGroup,
 					},
 				},
 			},
